@@ -5,26 +5,34 @@
 }
 
 :root {
-    --primary-color: #059669;
-    --primary-dark: #047857;
-    --secondary-color: #7c3aed;
+    --primary-color: #3b82f6;
+    --primary-dark: #2563eb;
+    --secondary-color: #8b5cf6;
+    --accent-color: #f59e0b;
     --success-color: #10b981;
     --error-color: #ef4444;
     --text-primary: #1f2937;
     --text-secondary: #6b7280;
-    --bg-color: #f9fafb;
+    --text-light: #9ca3af;
+    --bg-color: #f8fafc;
+    --bg-gradient-start: #667eea;
+    --bg-gradient-end: #764ba2;
     --card-bg: #ffffff;
-    --border-color: #e5e7eb;
+    --card-shadow: rgba(0, 0, 0, 0.1);
+    --border-color: #e2e8f0;
+    --border-radius: 12px;
     --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #059669 0%, #047857 100%);
+    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
     min-height: 100vh;
     padding: 2rem 1rem;
     color: var(--text-primary);
+    line-height: 1.6;
 }
 
 .container {
@@ -45,39 +53,74 @@ header {
 }
 
 header h1 {
-    font-size: 1.8rem;
-    font-weight: 700;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    font-size: 2.2rem;
+    font-weight: 800;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
     flex: 1;
     text-align: center;
+    background: linear-gradient(45deg, #ffffff, #e2e8f0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -0.02em;
 }
 
 .btn-download {
-    background: white;
-    color: #047857;
-    padding: 0.7rem 1.5rem;
+    background: linear-gradient(135deg, var(--accent-color), #d97706);
+    color: white;
+    padding: 0.8rem 1.6rem;
     border: none;
-    border-radius: 8px;
+    border-radius: var(--border-radius);
     font-size: 0.95rem;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 14px 0 rgba(245, 158, 11, 0.3);
     white-space: nowrap;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-download::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.btn-download:hover::before {
+    left: 100%;
 }
 
 .btn-download:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    background: #f0f0f0;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px 0 rgba(245, 158, 11, 0.4);
 }
 
 .card {
     background: var(--card-bg);
-    border-radius: 10px;
-    padding: 1.2rem;
-    box-shadow: var(--shadow-lg);
-    margin-bottom: 1rem;
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    box-shadow: var(--shadow-xl);
+    margin-bottom: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
 }
 
 .form-group {
@@ -106,12 +149,14 @@ input[type="text"],
 input[type="email"],
 input[type="file"] {
     width: 100%;
-    padding: 0.75rem 1rem;
+    padding: 1rem 1.2rem;
     border: 2px solid var(--border-color);
-    border-radius: 8px;
+    border-radius: var(--border-radius);
     font-size: 1rem;
-    transition: all 0.3s ease;
-    background: white;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: #ffffff;
+    font-family: inherit;
+    color: var(--text-primary);
 }
 
 input[type="text"]:focus,
@@ -119,7 +164,8 @@ input[type="email"]:focus,
 input[type="file"]:focus {
     outline: none;
     border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1), 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-1px);
 }
 
 input[type="file"] {
@@ -176,31 +222,81 @@ input[type="file"] {
 }
 
 .btn-primary {
-    background: var(--primary-color);
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
     color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    padding: 1.2rem 2.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 14px 0 rgba(59, 130, 246, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.btn-primary:hover:not(:disabled)::before {
+    left: 100%;
 }
 
 .btn-primary:hover:not(:disabled) {
-    background: var(--primary-dark);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-lg);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px 0 rgba(59, 130, 246, 0.4);
 }
 
 .btn-primary:disabled {
-    background: #9ca3af;
+    background: var(--text-light);
     cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
 }
 
 .btn-secondary {
-    background: var(--secondary-color);
+    background: linear-gradient(135deg, var(--secondary-color), #7c3aed);
     color: white;
-    margin-top: 1rem;
+    margin-top: 1.5rem;
+    border: none;
+    border-radius: var(--border-radius);
+    padding: 1.2rem 2.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 14px 0 rgba(139, 92, 246, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-secondary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.btn-secondary:hover::before {
+    left: 100%;
 }
 
 .btn-secondary:hover {
-    background: #0891b2;
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-lg);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px 0 rgba(139, 92, 246, 0.4);
 }
 
 .loader {
@@ -237,13 +333,19 @@ input[type="file"] {
 }
 
 #resultsTable th {
-    background-color: var(--primary-color);
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
     color: white;
     font-weight: 600;
+    padding: 1rem 0.75rem;
+    text-align: left;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+    font-size: 0.95rem;
 }
 
 #resultsTable tr:hover {
-    background-color: #f9fafb;
+    background-color: rgba(59, 130, 246, 0.05);
+    transform: scale(1.01);
+    transition: all 0.2s ease;
 }
 
 #resultsTable td {
@@ -252,10 +354,20 @@ input[type="file"] {
 
 footer {
     text-align: center;
-    color: white;
-    margin-top: 2rem;
-    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin-top: 3rem;
+    font-size: 1rem;
     opacity: 0.9;
+    font-weight: 500;
+}
+
+footer p {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 1rem 2rem;
+    border-radius: var(--border-radius);
+    display: inline-block;
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 @media (max-width: 640px) {
@@ -266,19 +378,34 @@ footer {
     .header-content {
         flex-direction: column;
         align-items: flex-start;
+        gap: 1rem;
     }
 
     header h1 {
-        font-size: 1.5rem;
+        font-size: 1.8rem;
+        text-align: left;
     }
 
     .card {
-        padding: 1rem;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
     }
 
     .btn-download {
-        align-self: flex-end;
-        padding: 0.6rem 1.2rem;
-        font-size: 0.85rem;
+        align-self: stretch;
+        padding: 0.8rem 1.6rem;
+        font-size: 0.95rem;
+        text-align: center;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+        padding: 1rem 2rem;
+        font-size: 1rem;
+    }
+
+    footer p {
+        padding: 0.8rem 1.5rem;
+        font-size: 0.9rem;
     }
 }
