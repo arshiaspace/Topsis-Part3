@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TOPSIS Decision Analysis Tool</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <h1>TOPSIS Decision Analysis Tool</h1>
+                <button id="downloadBtn" class="btn-download" style="display: none;">Download CSV Results</button>
+            </div>
+        </header>
+
+        <div class="card">
+            <form id="topsisForm">
+                <div class="form-group">
+                    <label for="inputFile">
+                        <span class="label-text">Upload Input File</span>
+                        <span class="label-hint">(.csv or .xlsx format)</span>
+                    </label>
+                    <input type="file" id="inputFile" accept=".csv,.xlsx" required>
+                    <small class="help-text">Upload a CSV or Excel file with your data. First column should be item names, followed by numeric criteria columns.</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="weights">
+                        <span class="label-text">Weights</span>
+                        <span class="label-hint">(comma-separated)</span>
+                    </label>
+                    <input type="text" id="weights" placeholder="e.g., 1,2,1,3 (one weight per criterion)" required>
+                    <small class="help-text">Assign importance weights to each criterion, separated by commas (e.g., 1,2,1 means second criterion is twice as important).</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="impacts">
+                        <span class="label-text">Impacts</span>
+                        <span class="label-hint">(comma-separated + or -)</span>
+                    </label>
+                    <input type="text" id="impacts" placeholder="e.g., +,+,-,+ (one sign per criterion)" required>
+                    <small class="help-text">Specify if each criterion should be maximized (+) or minimized (-) for better performance.</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">
+                        <span class="label-text">Email Address</span>
+                        <span class="label-hint">(to receive results)</span>
+                    </label>
+                    <input type="email" id="email" placeholder="your.email@domain.com" required>
+                    <small class="help-text">We'll email you the TOPSIS results with rankings and scores as a CSV attachment.</small>
+                </div>
+
+                <div id="errorMessage" class="error-message"></div>
+                <div id="successMessage" class="success-message"></div>
+
+                <button type="submit" id="submitBtn" class="btn-primary">
+                    <span id="btnText">Run TOPSIS Analysis</span>
+                    <span id="btnLoader" class="loader" style="display: none;"></span>
+                </button>
+            </form>
+        </div>
+
+        <footer>
+            <p>Built with ❤️ by Arshia Anand</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
